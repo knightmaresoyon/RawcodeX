@@ -1,0 +1,117 @@
+﻿@using RawcodeX.UI.Models
+@model RawcodeX.UI.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Register";
+Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+<style>
+    .bg-register {
+        background: url(https://colorlib.com/etc/lf/Login_v18/images/bg-01.jpg);
+        background-position: center;
+        background-size: cover
+    }
+</style>
+}
+
+@{
+    if (TempData.ContainsKey("msg"))
+    {
+        var res = (OperationResult)TempData["msg"];
+        if (res.IsSuccessful)
+        {
+            <div id="notifyUser2" class="alert alert-success">
+                <button data-dismiss="alert" class="close" type="button">×</button>
+                <div>@res.Message </div>
+            </div>
+        }
+        else
+        {
+            <div id="notifyUser2" class="alert alert-error">
+                <button data-dismiss="alert" class="close" type="button">×</button>
+                <div>@res.Message </div>
+            </div>
+        }
+    }
+}
+
+<div class="container">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-register"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Create New User</h1>
+                        </div>
+
+                        <div>
+                            @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "user" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div>@Html.ValidationSummary(true, "", new { @class = "text-danger" })</div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        @*<input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">*@
+                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control form-control-user", id = "exampleFirstName", placeholder = "First Name", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-sm-6">
+                                        @*<input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">*@
+                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control form-control-user", id = "exampleLastName", placeholder = "Last Name", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @*<input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">*@
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-user", id = "exampleEmail", placeholder = "Email Address", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        @*<input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="User Name">*@
+                                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control form-control-user", id = "exampleUserName", placeholder = "User Name", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-sm-6">
+                                        @*<input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="PhoneNumber">*@
+                                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control form-control-user", id = "examplephnNum", placeholder = "Phone Number", required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @*<input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">*@
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control form-control-user", id = "examplePass", placeholder = "Password", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @*<input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">*@
+                                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control form-control-user", id = "exampleConfirmPass", placeholder = "Confirm Password", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
+                                <input type="submit" class="btn btn-primary btn-user btn-block" value="Create" />
+
+                            }
+
+                        </div>
+                        <hr>
+                        <div>
+                            <a href="@Url.Action("UserList", "Account")">
+                                <i class="far fa-arrow-alt-circle-left fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Back
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+

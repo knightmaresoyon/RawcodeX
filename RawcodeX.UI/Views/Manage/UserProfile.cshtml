@@ -1,0 +1,78 @@
+﻿@using RawcodeX.UI.Models
+@model RawcodeX.UI.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+}
+
+@{
+    if (TempData.ContainsKey("msg"))
+    {
+        var res = (OperationResult)TempData["msg"];
+        if (res.IsSuccessful)
+        { 
+            <div id="notifyUser2" class="alert alert-success">
+                <button data-dismiss="alert" class="close" type="button">×</button>
+                <div>@res.Message </div>
+            </div>
+        }
+        else
+        {
+            <div id="notifyUser2" class="alert alert-error">
+                <button data-dismiss="alert" class="close" type="button">×</button>
+                <div>@res.Message </div>
+            </div>
+        }
+    }
+}
+<style>
+    #itemCenter {
+        text-align: center
+    }
+</style>
+<div>
+    @*<h1 class="h3 mb-2 text-gray-800">Profile</h1>*@
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h5 class="m-0 font-weight-bold text-primary">Profile</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th id="itemCenter">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td> @Html.DisplayFor(model => model.FirstName)</td>
+                            <td> @Html.DisplayFor(model => model.LastName)</td>
+                            <td> @Html.DisplayFor(model => model.UserName)</td>
+                            <td>@Html.DisplayFor(model => model.Email)</td>
+                            <td>@Html.DisplayFor(model => model.PhoneNumber)</td>
+                            <td id="itemCenter">
+                                <a class="btn btn-info" href="@Url.Action("EditUserProfile", "Manage")">
+                                    <i class="far fa-edit"></i>
+                                    Edit
+                                </a>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
